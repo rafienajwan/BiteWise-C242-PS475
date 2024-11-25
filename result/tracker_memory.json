@@ -1,0 +1,500 @@
+{
+    "2024-04-24": [
+        {
+            "food_name": "Roti Bakar",
+            "calories": 226.1,
+            "protein": 26.8,
+            "fat": 16.69,
+            "carbs": 79.52,
+            "time": "16:33:00"
+        }
+    ],
+    "2024-03-03": [
+        {
+            "food_name": "Bakmi Jawa",
+            "calories": 225.32,
+            "protein": 30.68,
+            "fat": 21.88,
+            "carbs": 68.09,
+            "time": "08:11:00"
+        }
+    ],
+    "2024-09-25": [
+        {
+            "food_name": "Sate Kambing",
+            "calories": 565.93,
+            "protein": 40.54,
+            "fat": 2.6,
+            "carbs": 11.98,
+            "time": "21:23:00"
+        }
+    ],
+    "2024-05-08": [
+        {
+            "food_name": "Tahu Goreng",
+            "calories": 468.42,
+            "protein": 12.43,
+            "fat": 12.67,
+            "carbs": 37.83,
+            "time": "11:18:00"
+        }
+    ],
+    "2024-08-21": [
+        {
+            "food_name": "Gudeg",
+            "calories": 569.06,
+            "protein": 29.15,
+            "fat": 6.8,
+            "carbs": 59.73,
+            "time": "05:00:00"
+        }
+    ],
+    "2024-11-06": [
+        {
+            "food_name": "Serabi",
+            "calories": 240.6,
+            "protein": 26.93,
+            "fat": 26.28,
+            "carbs": 56.83,
+            "time": "16:17:00"
+        }
+    ],
+    "2024-08-26": [
+        {
+            "food_name": "Ayam Penyet",
+            "calories": 248.17,
+            "protein": 29.46,
+            "fat": 25.46,
+            "carbs": 41.87,
+            "time": "06:22:00"
+        }
+    ],
+    "2024-10-10": [
+        {
+            "food_name": "Martabak",
+            "calories": 620.15,
+            "protein": 26.83,
+            "fat": 24.76,
+            "carbs": 37.04,
+            "time": "06:34:00"
+        }
+    ],
+    "2024-06-07": [
+        {
+            "food_name": "Es Kelapa",
+            "calories": 369.07,
+            "protein": 42.93,
+            "fat": 25.24,
+            "carbs": 17.64,
+            "time": "08:41:00"
+        }
+    ],
+    "2024-07-22": [
+        {
+            "food_name": "Martabak",
+            "calories": 567.71,
+            "protein": 49.24,
+            "fat": 27.41,
+            "carbs": 10.46,
+            "time": "12:27:00"
+        }
+    ],
+    "2024-08-22": [
+        {
+            "food_name": "Nasi Goreng",
+            "calories": 596.52,
+            "protein": 20.76,
+            "fat": 28.55,
+            "carbs": 67.96,
+            "time": "15:15:00"
+        }
+    ],
+    "2024-07-09": [
+        {
+            "food_name": "Opor Ayam",
+            "calories": 449.59,
+            "protein": 32.63,
+            "fat": 26.61,
+            "carbs": 69.09,
+            "time": "16:06:00"
+        }
+    ],
+    "2024-07-16": [
+        {
+            "food_name": "Es Kelapa",
+            "calories": 210.69,
+            "protein": 6.7,
+            "fat": 28.16,
+            "carbs": 55.12,
+            "time": "23:14:00"
+        }
+    ],
+    "2024-10-21": [
+        {
+            "food_name": "Serabi",
+            "calories": 518.74,
+            "protein": 39.54,
+            "fat": 22.89,
+            "carbs": 12.55,
+            "time": "01:58:00"
+        }
+    ],
+    "2024-01-19": [
+        {
+            "food_name": "Mie Goreng",
+            "calories": 445.6,
+            "protein": 23.82,
+            "fat": 17.03,
+            "carbs": 61.77,
+            "time": "19:15:00"
+        }
+    ],
+    "2024-03-12": [
+        {
+            "food_name": "Ikan Goreng",
+            "calories": 145.07,
+            "protein": 6.98,
+            "fat": 2.12,
+            "carbs": 53.47,
+            "time": "06:50:00"
+        }
+    ],
+    "2024-07-28": [
+        {
+            "food_name": "Siomay",
+            "calories": 145.2,
+            "protein": 17.37,
+            "fat": 20.46,
+            "carbs": 25.44,
+            "time": "09:01:00"
+        }
+    ],
+    "2024-08-27": [
+        {
+            "food_name": "Bakmi Jawa",
+            "calories": 341.17,
+            "protein": 48.14,
+            "fat": 11.14,
+            "carbs": 79.27,
+            "time": "03:53:00"
+        }
+    ],
+    "2024-06-22": [
+        {
+            "food_name": "Nasi Liwet",
+            "calories": 300.83,
+            "protein": 43.69,
+            "fat": 25.88,
+            "carbs": 71.8,
+            "time": "06:06:00"
+        }
+    ],
+    "2024-02-03": [
+        {
+            "food_name": "Gudeg",
+            "calories": 687.07,
+            "protein": 19.35,
+            "fat": 6.8,
+            "carbs": 78.61,
+            "time": "17:58:00"
+        }
+    ],
+    "2024-06-23": [
+        {
+            "food_name": "Ikan Goreng",
+            "calories": 396.25,
+            "protein": 5.68,
+            "fat": 2.3,
+            "carbs": 61.47,
+            "time": "00:54:00"
+        }
+    ],
+    "2024-03-31": [
+        {
+            "food_name": "Kolak Pisang",
+            "calories": 467.04,
+            "protein": 10.13,
+            "fat": 19.57,
+            "carbs": 69.99,
+            "time": "23:25:00"
+        }
+    ],
+    "2024-01-13": [
+        {
+            "food_name": "Cah Kangkung",
+            "calories": 552.9,
+            "protein": 43.21,
+            "fat": 22.12,
+            "carbs": 16.91,
+            "time": "03:12:00"
+        }
+    ],
+    "2024-02-25": [
+        {
+            "food_name": "Dimsum",
+            "calories": 331.06,
+            "protein": 17.36,
+            "fat": 16.12,
+            "carbs": 16.52,
+            "time": "15:18:00"
+        }
+    ],
+    "2024-03-10": [
+        {
+            "food_name": "Nasi Kuning",
+            "calories": 255.6,
+            "protein": 49.58,
+            "fat": 26.02,
+            "carbs": 49.68,
+            "time": "13:17:00"
+        }
+    ],
+    "2024-03-30": [
+        {
+            "food_name": "Es Kelapa",
+            "calories": 571.08,
+            "protein": 31.64,
+            "fat": 18.02,
+            "carbs": 34.06,
+            "time": "01:39:00"
+        }
+    ],
+    "2024-07-20": [
+        {
+            "food_name": "Ayam Bakar",
+            "calories": 100.36,
+            "protein": 10.5,
+            "fat": 20.94,
+            "carbs": 59.22,
+            "time": "17:46:00"
+        }
+    ],
+    "2024-06-16": [
+        {
+            "food_name": "Ayam Penyet",
+            "calories": 131.02,
+            "protein": 49.3,
+            "fat": 3.91,
+            "carbs": 79.87,
+            "time": "21:38:00"
+        },
+        {
+            "food_name": "Serabi",
+            "calories": 129.23,
+            "protein": 44.99,
+            "fat": 18.13,
+            "carbs": 61.43,
+            "time": "07:46:00"
+        }
+    ],
+    "2024-04-09": [
+        {
+            "food_name": "Rendang",
+            "calories": 569.16,
+            "protein": 30.24,
+            "fat": 17.86,
+            "carbs": 43.76,
+            "time": "15:31:00"
+        }
+    ],
+    "2024-07-26": [
+        {
+            "food_name": "Sop Buntut",
+            "calories": 576.62,
+            "protein": 10.26,
+            "fat": 29.94,
+            "carbs": 29.02,
+            "time": "15:37:00"
+        }
+    ],
+    "2024-10-29": [
+        {
+            "food_name": "Bakmi Jawa",
+            "calories": 616.73,
+            "protein": 47.38,
+            "fat": 27.93,
+            "carbs": 17.31,
+            "time": "04:57:00"
+        }
+    ],
+    "2024-08-30": [
+        {
+            "food_name": "Rawon",
+            "calories": 620.99,
+            "protein": 44.82,
+            "fat": 16.98,
+            "carbs": 50.17,
+            "time": "18:30:00"
+        }
+    ],
+    "2024-02-23": [
+        {
+            "food_name": "Es Cendol",
+            "calories": 312.08,
+            "protein": 11.99,
+            "fat": 9.56,
+            "carbs": 29.4,
+            "time": "17:54:00"
+        }
+    ],
+    "2024-07-13": [
+        {
+            "food_name": "Martabak",
+            "calories": 502.2,
+            "protein": 24.96,
+            "fat": 22.63,
+            "carbs": 25.58,
+            "time": "05:55:00"
+        }
+    ],
+    "2024-05-21": [
+        {
+            "food_name": "Nasi Goreng",
+            "calories": 274.48,
+            "protein": 42.75,
+            "fat": 15.48,
+            "carbs": 48.85,
+            "time": "01:34:00"
+        }
+    ],
+    "2024-04-21": [
+        {
+            "food_name": "Donat",
+            "calories": 457.96,
+            "protein": 9.75,
+            "fat": 20.37,
+            "carbs": 39.71,
+            "time": "12:47:00"
+        }
+    ],
+    "2024-05-20": [
+        {
+            "food_name": "Nasi Campur",
+            "calories": 187.26,
+            "protein": 43.04,
+            "fat": 28.09,
+            "carbs": 75.06,
+            "time": "03:51:00"
+        }
+    ],
+    "2024-07-18": [
+        {
+            "food_name": "Es Kelapa",
+            "calories": 304.49,
+            "protein": 32.7,
+            "fat": 23.35,
+            "carbs": 17.97,
+            "time": "04:06:00"
+        }
+    ],
+    "2024-03-20": [
+        {
+            "food_name": "Sambal Goreng Ati",
+            "calories": 118.89,
+            "protein": 44.82,
+            "fat": 22.38,
+            "carbs": 17.67,
+            "time": "17:41:00"
+        }
+    ],
+    "2024-09-02": [
+        {
+            "food_name": "Ayam Geprek",
+            "calories": 223.89,
+            "protein": 6.86,
+            "fat": 24.8,
+            "carbs": 63.92,
+            "time": "02:31:00"
+        }
+    ],
+    "2024-04-23": [
+        {
+            "food_name": "Ikan Goreng",
+            "calories": 224.77,
+            "protein": 10.42,
+            "fat": 24.15,
+            "carbs": 71.34,
+            "time": "10:54:00"
+        }
+    ],
+    "2024-08-16": [
+        {
+            "food_name": "Capcay",
+            "calories": 303.72,
+            "protein": 49.42,
+            "fat": 15.18,
+            "carbs": 62.38,
+            "time": "14:14:00"
+        }
+    ],
+    "2024-06-18": [
+        {
+            "food_name": "Lontong Sayur",
+            "calories": 258.9,
+            "protein": 19.36,
+            "fat": 20.21,
+            "carbs": 50.71,
+            "time": "12:26:00"
+        }
+    ],
+    "2024-09-18": [
+        {
+            "food_name": "Es Doger",
+            "calories": 115.9,
+            "protein": 13.72,
+            "fat": 6.82,
+            "carbs": 36.83,
+            "time": "03:59:00"
+        }
+    ],
+    "2024-08-17": [
+        {
+            "food_name": "Ayam Geprek",
+            "calories": 316.57,
+            "protein": 7.01,
+            "fat": 8.86,
+            "carbs": 29.65,
+            "time": "10:20:00"
+        }
+    ],
+    "2024-04-28": [
+        {
+            "food_name": "Sambal Goreng Ati",
+            "calories": 224.5,
+            "protein": 45.86,
+            "fat": 7.1,
+            "carbs": 34.57,
+            "time": "06:14:00"
+        }
+    ],
+    "2024-01-23": [
+        {
+            "food_name": "Martabak",
+            "calories": 167.46,
+            "protein": 33.75,
+            "fat": 6.77,
+            "carbs": 30.0,
+            "time": "08:51:00"
+        }
+    ],
+    "2024-07-05": [
+        {
+            "food_name": "Martabak",
+            "calories": 503.89,
+            "protein": 21.77,
+            "fat": 16.37,
+            "carbs": 19.46,
+            "time": "05:34:00"
+        }
+    ],
+    "2024-08-12": [
+        {
+            "food_name": "Sambal Goreng Ati",
+            "calories": 543.17,
+            "protein": 19.44,
+            "fat": 20.72,
+            "carbs": 31.16,
+            "time": "18:44:00"
+        }
+    ]
+}
