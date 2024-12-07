@@ -1,6 +1,7 @@
 const { searchMealHandler, getMealDetailsHandler, addMealComponentHandler, getMealHandler, deleteComponentMealHandler, deleteMealHandler } = require('./handler/MealHandler');
 const { addUserHandler, getUserHandler, editUserHandler, editWaterValueHandler, getWaterValueHandler } = require('./handler/userHandler');
 const { predictPFCHandler, getPFCHandler } = require('./handler/pfcHandler');
+const { getNutrientTrackerHandler } = require('./handler/trackerHandler');
 const { pushFoodData } = require('./postSearchQueue');
 
 const routes = [
@@ -87,7 +88,12 @@ const routes = [
         method: 'GET',
         path: '/user/{userId}/pfc',
         handler: getPFCHandler
+    },
+    {
+        method: 'GET',
+        path: '/user/{userId}/nutrientTracker',
+        handler: getNutrientTrackerHandler
     }
-]
+];
 
 module.exports = routes;
