@@ -129,9 +129,9 @@ async function deleteComponentMealHandler(request, h) {
     const { userId, mealName, componentName } = request.params;
 
     // Replace spaces with underscores in mealName
-    mealName = mealName.trim().replace(/\s+/g, '_');
+    const formattedMealName = mealName.trim().replace(/\s+/g, '_');
 
-    console.log(`Deleting component for user: ${userId}, mealName: ${mealName}, componentName: ${componentName}`); // Debugging line
+    console.log(`Deleting component for user: ${userId}, mealName: ${formattedMealName}, componentName: ${componentName}`); // Debugging line
 
     try {
         const userProfileRef = firestore.collection('users').doc(userId);
@@ -146,19 +146,19 @@ async function deleteComponentMealHandler(request, h) {
         const mealData = userData.wantedMenu || {};
 
         // Check if the meal exists
-        if (!mealData[mealName]) {
+        if (!mealData[formattedMealName]) {
             console.log('Meal not found'); // Debugging line
             return h.response({ error: 'Meal not found' }).code(404);
         }
 
         // Check if the component exists
-        if (!mealData[mealName][componentName]) {
+        if (!mealData[formattedMealName][componentName]) {
             console.log('Component not found'); // Debugging line
             return h.response({ error: 'Component not found' }).code(404);
         }
 
         // Delete the specific meal component
-        const updatePath = `wantedMenu.${mealName}.${componentName}`;
+        const updatePath = `wantedMenu.${formattedMealName}.${componentName}`;
         const updateData = {
             [updatePath]: Firestore.FieldValue.delete()
         };
@@ -176,7 +176,47 @@ async function deleteComponentMealHandler(request, h) {
 }
 
 async function deleteMealHandler(request, h) {
-    
+    const { userId, mealName } = request.params;
+
+    // Replace spaces with underscores in mealName
+    const formattedMealName = mealName.trim().replace(/\s+/g, '_');
+
+    console.log(`Deleting meal for user: ${userId}, mealName: ${formattedMealName}`); // Debugging line
+
+    try {
+        const userProfileRef = firestore.collection('users').doc(userId);
+        const userDoc = await userProfileRef.get();
+
+        if (!userDoc.exists) {
+            console.log('User not found'); // Debugging line
+            return h.response({ error: 'User not found' }).code(404);
+        }
+
+        const userData = userDoc.data();
+        const mealData = userData.wantedMenu || {};
+
+        // Check if the meal exists
+        if (!mealData[formattedMealName]) {
+            console.log('Meal not found'); // Debugging line
+            return h.response({ error: 'Meal not found' }).code(404);
+        }
+
+        // Delete the entire meal
+        const updatePath = `wantedMenu.${formattedMealName}`;
+        const updateData = {
+            [updatePath]: Firestore.FieldValue.delete()
+        };
+
+        console.log(`Update path: ${updatePath}`); // Debugging line
+        console.log(`Update data: ${JSON.stringify(updateData)}`); // Debugging line
+
+        await userProfileRef.update(updateData);
+        console.log('Meal deleted successfully'); // Debugging line
+        return h.response({ message: 'Meal deleted successfully' }).code(200);
+    } catch (error) {
+        console.error('Error deleting meal:', error); // Debugging line
+        return h.response({ error: 'An internal server error occurred' }).code(500);
+    }
 }
 
 module.exports = { searchMealHandler, getMealDetailsHandler, addMealComponentHandler, getMealHandler, deleteComponentMealHandler, deleteMealHandler };

@@ -18,9 +18,15 @@ const loadPFCModel = require('../services/pfcModel/loadPFCModel');
         },
     });
 
-    // Load the goals model and attach it to the server instance
-    const pfcModel = await loadPFCModel();
-    server.app.model = pfcModel;
+    try {
+        // Load the PFC model and attach it to server.app
+        const pfcModel = await loadPFCModel();
+        server.app.model = pfcModel;
+        console.log('PFC Model loaded and attached to server');
+    } catch (error) {
+        console.error('Failed to load PFC model:', error);
+        process.exit(1); // Exit if the model can't be loaded
+    }
     
     server.route(routes);
 
