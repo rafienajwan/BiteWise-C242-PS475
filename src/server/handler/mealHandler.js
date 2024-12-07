@@ -1,28 +1,7 @@
 const searchMeal = require('../../services/diary/meals/searchMeal');
+const extractNutrientValues = require('../../services/diary/meals/nutrientValues');
 const { Firestore } = require('@google-cloud/firestore');
 const firestore = new Firestore();
-
-// Helper function to extract numeric values from a formatted string
-function extractNutrientValues(description) {
-    const nutrients = {
-        calories: 0,
-        fat: 0,
-        carbs: 0,
-        protein: 0
-    };
-
-    const regex = /Calories:\s*([\d.]+)kcal\s*\|\s*Fat:\s*([\d.]+)g\s*\|\s*Carbs:\s*([\d.]+)g\s*\|\s*Protein:\s*([\d.]+)g/;
-    const match = description.match(regex);
-
-    if (match) {
-        nutrients.calories = parseFloat(match[1]);
-        nutrients.fat = parseFloat(match[2]);
-        nutrients.carbs = parseFloat(match[3]);
-        nutrients.protein = parseFloat(match[4]);
-    }
-
-    return nutrients;
-}
 
 // Handler to search for a meal by name
 async function searchMealHandler(request, h) {
@@ -54,7 +33,11 @@ async function getMealDetailsHandler(request, h) {
 // Handler to add a meal component to the user's profile
 async function addMealComponentHandler(request, h) {
     const { userId, mealId } = request.params;
-    const { grams, postToProfile, mealName } = request.payload;
+    const { grams, postToProfile } = request.payload;
+    let { mealName } = request.payload;
+
+    // Replace spaces with underscores in mealName
+    mealName = mealName.trim().replace(/\s+/g, '_');
 
     console.log(`Fetching meal with ID: ${mealId}`); // Debugging line
 
@@ -127,4 +110,73 @@ async function addMealComponentHandler(request, h) {
     }
 }
 
-module.exports = { searchMealHandler, getMealDetailsHandler, addMealComponentHandler };
+async function getMealHandler(request, h) {
+    const { userId } = request.params;
+    const userProfileRef = firestore.collection('users').doc(userId);
+    const userDoc = await userProfileRef.get();
+
+    if (!userDoc.exists) {
+        return h.response({ error: 'User not found' }).code(404);
+    }
+
+    const userData = userDoc.data();
+    const mealData = userData.wantedMenu || {};
+
+    return h.response(mealData).code(200);
+}
+
+async function deleteComponentMealHandler(request, h) {
+    const { userId, mealName, componentName } = request.params;
+
+    // Replace spaces with underscores in mealName
+    mealName = mealName.trim().replace(/\s+/g, '_');
+
+    console.log(`Deleting component for user: ${userId}, mealName: ${mealName}, componentName: ${componentName}`); // Debugging line
+
+    try {
+        const userProfileRef = firestore.collection('users').doc(userId);
+        const userDoc = await userProfileRef.get();
+
+        if (!userDoc.exists) {
+            console.log('User not found'); // Debugging line
+            return h.response({ error: 'User not found' }).code(404);
+        }
+
+        const userData = userDoc.data();
+        const mealData = userData.wantedMenu || {};
+
+        // Check if the meal exists
+        if (!mealData[mealName]) {
+            console.log('Meal not found'); // Debugging line
+            return h.response({ error: 'Meal not found' }).code(404);
+        }
+
+        // Check if the component exists
+        if (!mealData[mealName][componentName]) {
+            console.log('Component not found'); // Debugging line
+            return h.response({ error: 'Component not found' }).code(404);
+        }
+
+        // Delete the specific meal component
+        const updatePath = `wantedMenu.${mealName}.${componentName}`;
+        const updateData = {
+            [updatePath]: Firestore.FieldValue.delete()
+        };
+
+        console.log(`Update path: ${updatePath}`); // Debugging line
+        console.log(`Update data: ${JSON.stringify(updateData)}`); // Debugging line
+
+        await userProfileRef.update(updateData);
+        console.log('Component deleted successfully'); // Debugging line
+        return h.response({ message: 'Component deleted successfully' }).code(200);
+    } catch (error) {
+        console.error('Error deleting component:', error); // Debugging line
+        return h.response({ error: 'An internal server error occurred' }).code(500);
+    }
+}
+
+async function deleteMealHandler(request, h) {
+    
+}
+
+module.exports = { searchMealHandler, getMealDetailsHandler, addMealComponentHandler, getMealHandler, deleteComponentMealHandler, deleteMealHandler };

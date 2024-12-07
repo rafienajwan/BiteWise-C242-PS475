@@ -10,7 +10,7 @@ async function addUserHandler(request, h) {
     const { goal, gender, activeLevel, tall, weight, age } = request.payload;
 
     // set waterValue to zero as default
-    const waterValue = null;
+    const waterValue = 0;
     
     // save user data to array of object in JSON format
     const userData = {

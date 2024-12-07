@@ -2,7 +2,7 @@ require('dotenv').config();
 const Hapi = require('@hapi/hapi');
 const routes = require('./routes');
 const InputError = require('../exceptions/InputError');
-// const loadGoalsModel = require('../services/goalsModel/loadGoalsModel');
+const loadPFCModel = require('../services/pfcModel/loadPFCModel');
 
 (async () => {
     const server = Hapi.server({
@@ -18,8 +18,9 @@ const InputError = require('../exceptions/InputError');
         },
     });
 
-    // const goalsModel = await loadGoalsModel();
-    // server.app.model = goalsModel;
+    // Load the goals model and attach it to the server instance
+    const pfcModel = await loadPFCModel();
+    server.app.model = pfcModel;
     
     server.route(routes);
 

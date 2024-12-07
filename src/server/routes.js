@@ -1,4 +1,4 @@
-const { searchMealHandler, getMealDetailsHandler, addMealComponentHandler } = require('./handler/MealHandler');
+const { searchMealHandler, getMealDetailsHandler, addMealComponentHandler, getMealHandler, deleteComponentMealHandler, deleteMealHandler } = require('./handler/MealHandler');
 const { addUserHandler, getUserHandler, editUserHandler, editWaterValueHandler, getWaterValueHandler } = require('./handler/userHandler');
 const { pushFoodData } = require('./postSearchQueue');
 
@@ -61,7 +61,22 @@ const routes = [
             }
         },
         handler: addMealComponentHandler
-    }
+    },
+    {
+        method: 'GET',
+        path: '/user/{userId}/meal',
+        handler: getMealHandler
+    },
+    // {
+    //     method: 'DELETE',
+    //     path: '/user/{userId}/meal/{mealName}/{componentName}',
+    //     handler: deleteComponentMealHandler
+    // },
+    // {
+    //     method: 'DELETE',
+    //     path: '/user/{userId}/meal/{mealName}',
+    //     handler: deleteMealHandler
+    // }
 ]
 
 module.exports = routes;
