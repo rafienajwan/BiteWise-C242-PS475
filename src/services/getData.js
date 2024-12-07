@@ -3,7 +3,7 @@ const { Firestore } = require('@google-cloud/firestore');
 async function getData(id) {
     // get specific data from firestore using userId
     const db = new Firestore();
-    const profileCollection = db.collection('documents');
+    const profileCollection = db.collection('users');
     const querySnapshot = await profileCollection.where('userId', '==', id).get();
 
     if (querySnapshot.empty) {

@@ -54,7 +54,7 @@ const routes = [
     },
     {
         method: 'POST',
-        path: '/meal/{mealId}/add',
+        path: '/user/{userId}/meal/{mealId}/add',
         options: {
             payload: {
                 maxBytes: 10485760, // 10 MB limit
