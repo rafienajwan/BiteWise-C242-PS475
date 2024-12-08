@@ -1,10 +1,17 @@
-const { searchMealHandler, getMealDetailsHandler, addMealComponentHandler, getMealHandler, deleteComponentMealHandler, deleteMealHandler } = require('./handler/MealHandler');
+const { searchMealHandler, getMealDetailsHandler, addMealComponentHandler, getMealHandler, deleteComponentMealHandler, deleteMealHandler } = require('./handler/mealHandler');
 const { addUserHandler, getUserHandler, editUserHandler, editWaterValueHandler, getWaterValueHandler } = require('./handler/userHandler');
 const { predictPFCHandler, getPFCHandler } = require('./handler/pfcHandler');
 const { getNutrientTrackerHandler } = require('./handler/trackerHandler');
 const { pushFoodData } = require('./postSearchQueue');
 
 const routes = [
+    {
+        method: 'GET',
+        path: '/',
+        handler: (request, h) => {
+            return 'Welcome to the Bitewise API!';
+        }
+    },
     {
         method: 'POST',
         path: '/user',
