@@ -14,7 +14,7 @@ const activity_map = {
 };
 
 // Handler to predict PFC values from weight, tall, goal, active level, and age
-const predictPFCHandler = async (request, h) => {
+async function predictPFCHandler(request, h) {
     const { userId } = request.params;
     const { goal } = request.payload;
 
@@ -69,7 +69,7 @@ const predictPFCHandler = async (request, h) => {
         console.log(`Prepared input data: ${JSON.stringify(data)}`);
 
         // Access the model from the server instance
-        const model = request.server.app.model;
+        const model = request.server.app.pfcModel;
         if (!model) {
             console.error('Model is not loaded or not attached to server.app');
             return h.response({ error: 'Model is not loaded' }).code(500);

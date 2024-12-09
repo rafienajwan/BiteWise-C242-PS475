@@ -110,6 +110,58 @@ async function addMealComponentHandler(request, h) {
     }
 }
 
+// Handler to manually add a meal component to the user's profile and foodMenu collection
+async function addManualMealComponentHandler(request, h) {
+    const { userId } = request.params;
+    const { mealName, foodComponentName, grams, calories, carbs, fat, protein } = request.payload;
+
+    // Replace spaces with underscores in mealName and foodComponentName
+    const formattedMealName = mealName.trim().replace(/\s+/g, '_');
+    const formattedFoodComponentName = foodComponentName.trim().replace(/\s+/g, '_');
+
+    console.log(`Adding manual meal component for userId: ${userId}`); // Debugging line
+
+    try {
+        // Create the meal component data
+        const mealComponentData = {
+            grams,
+            calories,
+            carbs,
+            fat,
+            protein,
+            timestamp: Firestore.FieldValue.serverTimestamp()
+        };
+
+        // Add the meal component to the user's profile in Firestore
+        const userRef = firestore.collection('users').doc(userId);
+        await userRef.update({
+            [`wantedMenu.${formattedMealName}.${formattedFoodComponentName}`]: mealComponentData
+        });
+
+        console.log(`Added manual meal component to user's profile: ${JSON.stringify(mealComponentData)}`); // Debugging line
+
+        // // Add the meal component to the foodMenu collection in Firestore
+        // const foodMenuRef = firestore.collection('foodMenu').doc();
+        // await foodMenuRef.set({
+        //     mealName: formattedMealName,
+        //     foodComponentName: formattedFoodComponentName,
+        //     grams,
+        //     calories,
+        //     carbs,
+        //     fat,
+        //     protein,
+        //     timestamp: Firestore.FieldValue.serverTimestamp()
+        // });
+
+        // console.log(`Added manual meal component to foodMenu collection: ${JSON.stringify(mealComponentData)}`); // Debugging line
+
+        // return h.response({ message: 'Meal component added successfully' }).code(200);
+    } catch (error) {
+        console.error('Error adding manual meal component:', error);
+        return h.response({ error: 'Failed to add meal component' }).code(500);
+    }
+}
+
 async function getMealHandler(request, h) {
     const { userId } = request.params;
     const userProfileRef = firestore.collection('users').doc(userId);
@@ -219,4 +271,4 @@ async function deleteMealHandler(request, h) {
     }
 }
 
-module.exports = { searchMealHandler, getMealDetailsHandler, addMealComponentHandler, getMealHandler, deleteComponentMealHandler, deleteMealHandler };
+module.exports = { searchMealHandler, getMealDetailsHandler, addMealComponentHandler, getMealHandler, deleteComponentMealHandler, deleteMealHandler, addManualMealComponentHandler };

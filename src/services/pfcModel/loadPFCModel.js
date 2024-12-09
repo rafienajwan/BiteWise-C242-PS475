@@ -5,7 +5,7 @@ async function loadPFCModel() {
         const model = await tf.loadLayersModel(process.env.PFC_MODEL_URL);
         return model;
     } catch (error) {
-        console.error('Error loading goals model:', error);
+        console.error('Error loading PFC model:', error);
         throw error;
     }
 }

@@ -6,3 +6,5 @@ Dockerfile
 
 .gcloudignore
 app.yaml
+
+postTrackerMemory.js
