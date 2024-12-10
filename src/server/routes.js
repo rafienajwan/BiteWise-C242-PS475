@@ -1,8 +1,11 @@
 const { searchMealHandler, getMealDetailsHandler, addMealComponentHandler, getMealHandler, deleteComponentMealHandler, deleteMealHandler } = require('./handler/mealHandler');
 const { addUserHandler, getUserHandler, editUserHandler, editWaterValueHandler, getWaterValueHandler } = require('./handler/userHandler');
 const { predictPFCHandler, getPFCHandler } = require('./handler/pfcHandler');
+const { predictGoalsHandler, getGoalsHandler } = require('./handler/goalsHandler');
+// const { predictRecommendationHandler } = require('./handler/recommendationHandler');
 const { getNutrientTrackerHandler } = require('./handler/trackerHandler');
 const { pushFoodData } = require('./postSearchQueue');
+const { pushTrackerMemory } = require('./postTrackerMemory');
 
 const routes = [
     {
@@ -39,7 +42,7 @@ const routes = [
     },
     {
         method: 'POST',
-        path: '/search',
+        path: '/postfood',
         options: {
             payload: {
                 output: 'stream',
@@ -50,6 +53,20 @@ const routes = [
             }
         },
         handler: pushFoodData
+    },
+    {
+        method: 'POST',
+        path: '/posttrackermemory',
+        options: {
+            payload: {
+                output: 'stream',
+                parse: true,
+                allow: 'multipart/form-data',
+                multipart: true,
+                maxBytes: 10485760, // 10 MB limit
+            }
+        },
+        handler: pushTrackerMemory
     },
     {
         method: 'GET',
@@ -87,6 +104,11 @@ const routes = [
         handler: deleteMealHandler
     },
     {
+        method: 'GET',
+        path: '/user/{userId}/nutrientTracker',
+        handler: getNutrientTrackerHandler
+    },
+    {
         method: 'POST',
         path: '/user/{userId}/pfc',
         handler: predictPFCHandler
@@ -97,10 +119,25 @@ const routes = [
         handler: getPFCHandler
     },
     {
+        method: 'POST',
+        path: '/user/{userId}/goals',
+        handler: predictGoalsHandler
+    },
+    {
         method: 'GET',
-        path: '/user/{userId}/nutrientTracker',
-        handler: getNutrientTrackerHandler
-    }
+        path: '/user/{userId}/goals',
+        handler: getGoalsHandler
+    },
+    // {
+    //     method: 'POST',
+    //     path: '/user/{userId}/recommendation',
+    //     handler: predictRecommendationHandler
+    // },
+    // {
+    //     method: 'GET',
+    //     path: '/user/{userId}/recommendation',
+    //     handler: getRecommendationHandler
+    // },
 ];
 
 module.exports = routes;
