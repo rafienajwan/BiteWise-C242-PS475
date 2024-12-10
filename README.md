@@ -44,7 +44,76 @@ BiteWise is a cloud-based application designed to help users manage their daily 
    npm start
 
 ## Using the Calorie Calculation Feature
-
 This feature calculates daily calorie intake based on meals logged by users, using Firestore as the database and Google App Engine F2 for backend processing.
 ```bash
 npm install @google-cloud/firestore
+```
+
+### Steps to Run the Function
+1. **Import the Function:**
+   Make sure the function `calculateCalories` is imported from the appropriate file.
+   ```javascript
+   const calculateCalories = require('./calculateCalories');
+
+2. **Execute the Function: Replace exampleUserId with the actual user ID from your Firestore database.**
+This feature calculates daily calorie intake based on meals logged by users, using Firestore as the database and Google App Engine F2 for backend processing. 
+```javascript
+(async () => {
+    const userId = 'exampleUserId'; // Replace with a valid user ID
+    const result = await calculateCalories(userId);
+    console.log('Total Calories:', result.totalCalories);
+})();
+```
+
+3. **Run the Script: Save the script in a file, e.g., app.js, and execute it using Node.js:**
+```bash
+node app.js
+```
+
+### Example Output
+
+If the user has logged meals, you will see output similar to the following:
+```yaml
+Calculating calories for user: exampleUserId
+Total calories consumed: 1500
+```
+If no meals are logged for the user, you will see:
+```yaml
+Calculating calories for user: exampleUserId
+No meals found for this user.
+Total calories consumed: 0
+```
+## API Documentation
+
+#### Search for Meals
+Endpoint: /api/search-meal
+Method: GET
+Example:
+```bash
+curl -X GET "https://api.bitewise.com/search-meal?name=Nasi%20Goreng"
+```
+#### Log User Meal
+
+Endpoint: /api/log-meal
+Method: POST
+Body:
+```json
+{
+  "userId": "exampleUserId",
+  "mealName": "Nasi Goreng",
+  "calories": 500
+}
+```
+#### Calculate Calories
+Endpoint: /api/calculate-calories
+Method: GET
+Example:
+```bash
+curl -X GET "https://api.bitewise.com/calculate-calories?userId=exampleUserId"
+```
+
+#### - **Calorie Calculation Feature** : Added specific instructions for implementing and running the calorie calculation using Firestore and App Engine F2.
+
+#### - **Example Outputs**: Provided realistic outputs for better clarity.
+
+#### - **API Documentation**: Added REST API examples for key operations like searching meals, logging meals, and calculating calories.
