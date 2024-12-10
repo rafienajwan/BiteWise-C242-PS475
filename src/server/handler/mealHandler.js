@@ -30,6 +30,29 @@ async function getMealDetailsHandler(request, h) {
     return h.response(doc.data()).code(200);
 }
 
+// Handler to get all food data
+async function getAllFoodDataHandler(request, h) {
+    try {
+        const foodDataRef = firestore.collection('foodMenu');
+        const snapshot = await foodDataRef.get();
+
+        if (snapshot.empty) {
+            console.log('No food data found');
+            return h.response({ error: 'No food data found' }).code(404);
+        }
+
+        const foodData = [];
+        snapshot.forEach(doc => {
+            foodData.push({ id: doc.id, ...doc.data() });
+        });
+
+        return h.response(foodData).code(200);
+    } catch (error) {
+        console.error('Error fetching food data:', error);
+        return h.response({ error: 'Failed to fetch food data' }).code(500);
+    }
+}
+
 // Handler to add a meal component to the user's profile
 async function addMealComponentHandler(request, h) {
     const { userId, mealId } = request.params;
@@ -129,35 +152,39 @@ async function addManualMealComponentHandler(request, h) {
             carbs,
             fat,
             protein,
-            timestamp: Firestore.FieldValue.serverTimestamp()
+            timestamp: new Date()
         };
 
-        // Add the meal component to the user's profile in Firestore
-        const userRef = firestore.collection('users').doc(userId);
-        await userRef.update({
-            [`wantedMenu.${formattedMealName}.${formattedFoodComponentName}`]: mealComponentData
+        // Add the meal component to the user's profile
+        const userProfileRef = firestore.collection('users').doc(userId);
+        const userDoc = await userProfileRef.get();
+
+        if (!userDoc.exists) {
+            console.log('User not found');
+            return h.response({ error: 'User not found' }).code(404);
+        }
+
+        const userData = userDoc.data();
+        const wantedMenu = userData.wantedMenu || {};
+
+        if (!wantedMenu[formattedMealName]) {
+            wantedMenu[formattedMealName] = {};
+        }
+
+        wantedMenu[formattedMealName][formattedFoodComponentName] = mealComponentData;
+
+        await userProfileRef.update({ wantedMenu });
+
+        // Add the meal component to the foodMenu collection
+        const foodMenuRef = firestore.collection('foodMenu').doc(formattedFoodComponentName);
+        await foodMenuRef.set({
+            food_description: `Calories: ${calories}kcal | Fat: ${fat}g | Carbs: ${carbs}g | Protein: ${protein}g`
         });
 
-        console.log(`Added manual meal component to user's profile: ${JSON.stringify(mealComponentData)}`); // Debugging line
-
-        // // Add the meal component to the foodMenu collection in Firestore
-        // const foodMenuRef = firestore.collection('foodMenu').doc();
-        // await foodMenuRef.set({
-        //     mealName: formattedMealName,
-        //     foodComponentName: formattedFoodComponentName,
-        //     grams,
-        //     calories,
-        //     carbs,
-        //     fat,
-        //     protein,
-        //     timestamp: Firestore.FieldValue.serverTimestamp()
-        // });
-
-        // console.log(`Added manual meal component to foodMenu collection: ${JSON.stringify(mealComponentData)}`); // Debugging line
-
-        // return h.response({ message: 'Meal component added successfully' }).code(200);
+        console.log('Meal component added successfully');
+        return h.response({ message: 'Meal component added successfully' }).code(200);
     } catch (error) {
-        console.error('Error adding manual meal component:', error);
+        console.error('Error adding meal component:', error);
         return h.response({ error: 'Failed to add meal component' }).code(500);
     }
 }
@@ -180,10 +207,11 @@ async function getMealHandler(request, h) {
 async function deleteComponentMealHandler(request, h) {
     const { userId, mealName, componentName } = request.params;
 
-    // Replace spaces with underscores in mealName
+    // Replace spaces with underscores in mealName and componentName
     const formattedMealName = mealName.trim().replace(/\s+/g, '_');
+    const formattedComponentName = componentName.trim().replace(/\s+/g, '_');
 
-    console.log(`Deleting component for user: ${userId}, mealName: ${formattedMealName}, componentName: ${componentName}`); // Debugging line
+    console.log(`Deleting component: ${formattedComponentName} from meal: ${formattedMealName} for user: ${userId}`); // Debugging line
 
     try {
         const userProfileRef = firestore.collection('users').doc(userId);
@@ -197,28 +225,22 @@ async function deleteComponentMealHandler(request, h) {
         const userData = userDoc.data();
         const mealData = userData.wantedMenu || {};
 
-        // Check if the meal exists
-        if (!mealData[formattedMealName]) {
-            console.log('Meal not found'); // Debugging line
-            return h.response({ error: 'Meal not found' }).code(404);
+        // Check if the meal and component exist
+        if (!mealData[formattedMealName] || !mealData[formattedMealName][formattedComponentName]) {
+            console.log('Meal or component not found'); // Debugging line
+            return h.response({ error: 'Meal or component not found' }).code(404);
         }
 
-        // Check if the component exists
-        if (!mealData[formattedMealName][componentName]) {
-            console.log('Component not found'); // Debugging line
-            return h.response({ error: 'Component not found' }).code(404);
+        // Delete the component
+        delete mealData[formattedMealName][formattedComponentName];
+
+        // If the meal is now empty, delete the meal
+        if (Object.keys(mealData[formattedMealName]).length === 0) {
+            delete mealData[formattedMealName];
         }
 
-        // Delete the specific meal component
-        const updatePath = `wantedMenu.${formattedMealName}.${componentName}`;
-        const updateData = {
-            [updatePath]: Firestore.FieldValue.delete()
-        };
+        await userProfileRef.update({ wantedMenu: mealData });
 
-        console.log(`Update path: ${updatePath}`); // Debugging line
-        console.log(`Update data: ${JSON.stringify(updateData)}`); // Debugging line
-
-        await userProfileRef.update(updateData);
         console.log('Component deleted successfully'); // Debugging line
         return h.response({ message: 'Component deleted successfully' }).code(200);
     } catch (error) {
@@ -271,4 +293,4 @@ async function deleteMealHandler(request, h) {
     }
 }
 
-module.exports = { searchMealHandler, getMealDetailsHandler, addMealComponentHandler, getMealHandler, deleteComponentMealHandler, deleteMealHandler, addManualMealComponentHandler };
+module.exports = { searchMealHandler, getMealDetailsHandler, getAllFoodDataHandler, addMealComponentHandler, getMealHandler, deleteComponentMealHandler, deleteMealHandler, addManualMealComponentHandler };

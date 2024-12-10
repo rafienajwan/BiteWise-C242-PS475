@@ -1,4 +1,4 @@
-const { searchMealHandler, getMealDetailsHandler, addMealComponentHandler, getMealHandler, deleteComponentMealHandler, deleteMealHandler } = require('./handler/mealHandler');
+const { getAllFoodDataHandler, searchMealHandler, getMealDetailsHandler, addMealComponentHandler, addManualMealComponentHandler, getMealHandler, deleteComponentMealHandler, deleteMealHandler } = require('./handler/mealHandler');
 const { addUserHandler, getUserHandler, editUserHandler, editWaterValueHandler, getWaterValueHandler } = require('./handler/userHandler');
 const { predictPFCHandler, getPFCHandler } = require('./handler/pfcHandler');
 const { predictGoalsHandler, getGoalsHandler } = require('./handler/goalsHandler');
@@ -70,6 +70,11 @@ const routes = [
     },
     {
         method: 'GET',
+        path: '/search',
+        handler: getAllFoodDataHandler
+    },
+    {
+        method: 'GET',
         path: '/search/{mealName}',
         handler: searchMealHandler
     },
@@ -87,6 +92,16 @@ const routes = [
             }
         },
         handler: addMealComponentHandler
+    },
+    {
+        method: 'POST',
+        path: '/user/{userId}/meal/add',
+        options: {
+            payload: {
+                maxBytes: 10485760, // 10 MB limit
+            }
+        },
+        handler: addManualMealComponentHandler
     },
     {
         method: 'GET',
