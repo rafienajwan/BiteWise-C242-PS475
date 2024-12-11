@@ -1,5 +1,5 @@
 const { getAllFoodDataHandler, searchMealHandler, getMealDetailsHandler, addMealComponentHandler, addManualMealComponentHandler, getMealHandler, deleteComponentMealHandler, deleteMealHandler } = require('./handler/mealHandler');
-const { addUserHandler, getUserHandler, editUserHandler, editWaterValueHandler, getWaterValueHandler } = require('./handler/userHandler');
+const { addUserHandler, getUserHandler, editUserHandler, editWaterValueHandler, getWaterValueHandler, getAllUsersHandler } = require('./handler/userHandler');
 const { predictPFCHandler, getPFCHandler } = require('./handler/pfcHandler');
 const { predictGoalsHandler, getGoalsHandler } = require('./handler/goalsHandler');
 // const { predictRecommendationHandler } = require('./handler/recommendationHandler');
@@ -12,7 +12,12 @@ const routes = [
         method: 'GET',
         path: '/',
         handler: (request, h) => {
-            return 'Welcome to the Bitewise API!';
+            try {
+                return 'Welcome to the Bitewise API!';
+            } catch (error) {
+                console.error('Error handling root route:', error);
+                return h.response({ error: 'An internal server error occurred' }).code(500);
+            }
         }
     },
     {
@@ -39,6 +44,11 @@ const routes = [
         method: 'PUT',    
         path: '/user/{userId}/waterValue',
         handler: editWaterValueHandler
+    },
+    {
+        method: 'GET',    
+        path: '/user',
+        handler: getAllUsersHandler
     },
     {
         method: 'POST',
@@ -153,6 +163,13 @@ const routes = [
     //     path: '/user/{userId}/recommendation',
     //     handler: getRecommendationHandler
     // },
+    {
+        method: '*',
+        path: '/{any*}',
+        handler: (request, h) => {
+            return h.response({ error: 'Not Found' }).code(404);
+        }
+    }
 ];
 
 module.exports = routes;

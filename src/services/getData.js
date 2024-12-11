@@ -19,5 +19,25 @@ async function getData(id) {
     console.log('Document data:', documentData);
     return documentData;
 }
- 
-module.exports = { getData };
+
+async function getAllData() {
+    // get all data from firestore
+    const db = new Firestore();
+    const profileCollection = db.collection('users');
+    const querySnapshot = await profileCollection.get();
+
+    if (querySnapshot.empty) {
+        console.log('No users found.');
+        return [];
+    }
+
+    const allData = [];
+    querySnapshot.forEach(doc => {
+        allData.push({ id: doc.id, ...doc.data() });
+    });
+
+    console.log('All document data:', allData);
+    return allData;
+}
+
+module.exports = { getData, getAllData };

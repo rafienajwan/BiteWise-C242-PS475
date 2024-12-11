@@ -1,6 +1,6 @@
 const crypto = require('crypto');
 const storeData = require('../../services/storeData');
-const { getData } = require('../../services/getData');
+const { getData, getAllData } = require('../../services/getData');
 
 async function addUserHandler(request, h) {
     // randomize user id using crypto
@@ -129,4 +129,20 @@ async function getWaterValueHandler(request, h) {
     return response;
 }
 
-module.exports = { addUserHandler, getUserHandler, editUserHandler, editWaterValueHandler, getWaterValueHandler };
+async function getAllUsersHandler(request, h) {
+    try {
+        const users = await getAllData();
+
+        if (users.length === 0) {
+            console.log('No users found');
+            return h.response({ error: 'No users found' }).code(404);
+        }
+
+        return h.response(users).code(200);
+    } catch (error) {
+        console.error('Error fetching users:', error);
+        return h.response({ error: 'Failed to fetch users' }).code(500);
+    }
+}
+
+module.exports = { addUserHandler, getUserHandler, editUserHandler, editWaterValueHandler, getWaterValueHandler, getAllUsersHandler };
