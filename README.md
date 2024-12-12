@@ -16,13 +16,10 @@ BiteWise is a cloud-based application designed to help users manage their daily 
 4. **PFC Target Calculation**  
    - Predict personalized daily calorie targets using PFC (Protein, Fat, Carbohydrate) model with `/user/{userId}/pfc`.
 
-5. **Calorie Calculation**  
-   - Calculate daily calorie consumption using Firestore for data storage and Google App Engine F2 for processing.
-
-6. **User Data Management**  
+5. **User Data Management**  
    - Store and retrieve user-specific data for personalized features.
 
-7. **Cloud Integration with Firestore**  
+6. **Cloud Integration with Firestore**  
    - Leverage Google Firestore for real-time data storage and retrieval.
   
 ## API Documentation
