@@ -55,10 +55,6 @@ BiteWise provides various API endpoints that enable integration of features such
    - Leverage Firestore for data storage and retrieval.  
    - Use machine learning models to personalize recommendations and predictions for users.
 
-### Here is a list of available APIs:
-```
-https://bitewise-capstone.et.r.appspot.com
-```
 
 ### Endpoints:
 1. **Welcome Message**  
