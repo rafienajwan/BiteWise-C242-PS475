@@ -30,9 +30,9 @@ BiteWise provides tools for personalized nutrition tracking, goal-setting, and p
 ---
 
 ## Key Features
-- **User Management:** Create and manage user profiles with specific health goals.
+- **User Personal PFC Prediction:** Create and manage user profiles with specific health goals.
 - **Nutrition Tracking:** Log meals and track calories, macronutrients, and water intake.
-- **Goal Setting:** Predict the time needed to achieve weight targets and set PFC (Protein, Fats, Carbohydrates) goals.
+- **Goal Setting:** Predict the time needed to achieve weight targets.
 - **Search Database:** Explore various meal options with detailed nutrient data.
 
 ---
