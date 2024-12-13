@@ -1,0 +1,603 @@
+{
+	"info": {
+		"_postman_id": "04c5c2d9-1c1b-4fe7-83f6-6a920f679f73",
+		"name": "BiteWise",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "37885300"
+	},
+	"item": [
+		{
+			"name": "Post User Data",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"goal\": \"lose weight\",\r\n    \"gender\": \"male\",\r\n    \"activeLevel\": \"sedentary\",\r\n    \"tall\": \"172\",\r\n    \"weight\": \"61\",\r\n    \"age\": \"20\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://0.0.0.0:3000/user",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "3000",
+					"path": [
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get User Data",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://0.0.0.0:3000/user/393aa575d7aaf951aead7817a33e7192",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"393aa575d7aaf951aead7817a33e7192"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Users Data",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://0.0.0.0:3000/user",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "3000",
+					"path": [
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit User Data",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"goal\": \"lose weight\",\r\n    \"gender\": \"female\",\r\n    \"activeLevel\": \"active\",\r\n    \"tall\": \"151\",\r\n    \"weight\": \"43\",\r\n    \"age\": \"17\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://0.0.0.0:3000/user/5913b76e9a790823dd8c99d65150c1e7",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"5913b76e9a790823dd8c99d65150c1e7"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit Water Value",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"waterValue\": \"1.5\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://0.0.0.0:3000/user/5913b76e9a790823dd8c99d65150c1e7/waterValue",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"5913b76e9a790823dd8c99d65150c1e7",
+						"waterValue"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post Food Data",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/rafie/Downloads/search.json"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://0.0.0.0:3000/postfood",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "3000",
+					"path": [
+						"postfood"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Food Component Data Using Meal Name",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://0.0.0.0:3000/search/Anak_sapi_daging_kurus_segar",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "3000",
+					"path": [
+						"search",
+						"Anak_sapi_daging_kurus_segar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Food Component Data Using Meal Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://0.0.0.0:3000/meal/Abon",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "3000",
+					"path": [
+						"meal",
+						"Abon"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post Food Component in WantedMenu",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"grams\": 100,\r\n    \"postToProfile\": true,\r\n    \"mealName\": \"Nasi Campur\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://0.0.0.0:3000/user/393aa575d7aaf951aead7817a33e7192/meal/Abon/add",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"393aa575d7aaf951aead7817a33e7192",
+						"meal",
+						"Abon",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post Food Component in Wanted Menu 2",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"grams\": 100,\r\n    \"postToProfile\": true,\r\n    \"mealName\": \"Nasi Campur\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://0.0.0.0:3000/user/393aa575d7aaf951aead7817a33e7192/meal/Ikan_Mujair_goreng/add",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"393aa575d7aaf951aead7817a33e7192",
+						"meal",
+						"Ikan_Mujair_goreng",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post Food Component Manually",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"mealName\": \"Lunch\",\r\n    \"foodComponentName\": \"Grilled Chicken Breast\",\r\n    \"grams\": 200,\r\n    \"calories\": 300,\r\n    \"carbs\": 0,\r\n    \"fat\": 6,\r\n    \"protein\": 50\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://0.0.0.0:3000/user/5cda80c92b1edfbda29d507bb4093400/meal/add",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"5cda80c92b1edfbda29d507bb4093400",
+						"meal",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Meals Details",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://0.0.0.0:3000/user/5cda80c92b1edfbda29d507bb4093400/meal",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"5cda80c92b1edfbda29d507bb4093400",
+						"meal"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Predict PFC by User's Goal",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"goal\": \"69\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://0.0.0.0:3000/user/393aa575d7aaf951aead7817a33e7192/pfc",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"393aa575d7aaf951aead7817a33e7192",
+						"pfc"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get User's PFC",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"goal\": \"69\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://0.0.0.0:3000/user/393aa575d7aaf951aead7817a33e7192/pfc",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"393aa575d7aaf951aead7817a33e7192",
+						"pfc"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Meal Name",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://0.0.0.0:3000/user/393aa575d7aaf951aead7817a33e7192/meal/Nasi_Campur",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"393aa575d7aaf951aead7817a33e7192",
+						"meal",
+						"Nasi_Campur"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Meal's Component Name",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://0.0.0.0:3000/user/393aa575d7aaf951aead7817a33e7192/meal/Nasi_Campur/Abon",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"393aa575d7aaf951aead7817a33e7192",
+						"meal",
+						"Nasi_Campur",
+						"Abon"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Nutrient Tracker Data",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://0.0.0.0:3000/user/393aa575d7aaf951aead7817a33e7192/nutrientTracker",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"393aa575d7aaf951aead7817a33e7192",
+						"nutrientTracker"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post Tracker Memory Data",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/rafie/Downloads/tracker_memory.json"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://0.0.0.0:3000/posttrackermemory",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "3000",
+					"path": [
+						"posttrackermemory"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Predict Estimated Days to Reach Goal",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://0.0.0.0:3000/user/393aa575d7aaf951aead7817a33e7192/goals",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"393aa575d7aaf951aead7817a33e7192",
+						"goals"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Estimated Days",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://0.0.0.0:3000/user/393aa575d7aaf951aead7817a33e7192/goals",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"393aa575d7aaf951aead7817a33e7192",
+						"goals"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Food Data",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://0.0.0.0:3000/search",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "3000",
+					"path": [
+						"search"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
