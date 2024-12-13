@@ -1,5 +1,5 @@
 # BiteWise: Your Health and Nutrition Companion
-![hippo](https://github.com/user-attachments/assets/c62a3219-2495-4b61-b5e9-da3b9372c705) { width="250px" height="250px" }
+<img src="https://github.com/user-attachments/assets/c62a3219-2495-4b61-b5e9-da3b9372c705" width="300" height="300" alt="Gambar seekor hippo">
 
 BiteWise is a mobile application developed as part of the **Bangkit 2024 Capstone Project** (Batch 2) with the team ID **BiteWise-C242-PS475**. This app empowers users to manage their nutrition, set health goals, and track their progress towards a healthier lifestyle.
 
