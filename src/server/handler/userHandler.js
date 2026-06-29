@@ -3,16 +3,10 @@ const storeData = require('../../services/storeData');
 const { getData, getAllData } = require('../../services/getData');
 
 async function addUserHandler(request, h) {
-    // randomize user id using crypto
     const userId = crypto.randomBytes(16).toString('hex');
-
-    // get user data from request payload
     const { goal, gender, activeLevel, tall, weight, age } = request.payload;
-
-    // set waterValue to zero as default
     const waterValue = 0;
     
-    // save user data to array of object in JSON format
     const userData = {
         userId,
         goal,
@@ -24,7 +18,6 @@ async function addUserHandler(request, h) {
         waterValue
     };
 
-    // store data into firestore
     await storeData(userId, userData);
 
     const response = h.response({
@@ -47,8 +40,6 @@ async function addUserHandler(request, h) {
 
 async function getUserHandler(request, h) {
     const { userId } = request.params;
-
-    // get user data from firestore
     const userData = await getData(userId);
 
     if (!userData) {
@@ -69,11 +60,14 @@ async function getUserHandler(request, h) {
 
 async function editUserHandler(request, h) {
     const { userId } = request.params;
-
-    // get user data from firestore
     const userData = await getData(userId);
+    if (!userData) {
+        return h.response({
+            status: 'fail',
+            message: 'User not found'
+        }).code(404);
+    }
 
-    // replace user data with new data from request payload
     userData.goal = request.payload.goal;
     userData.gender = request.payload.gender;
     userData.activeLevel = request.payload.activeLevel;
@@ -81,7 +75,6 @@ async function editUserHandler(request, h) {
     userData.weight = request.payload.weight;
     userData.age = request.payload.age;
 
-    // store data into firestore
     await storeData(userId, userData);
 
     const response = h.response({
@@ -95,14 +88,16 @@ async function editUserHandler(request, h) {
 
 async function editWaterValueHandler(request, h) {
     const { userId } = request.params;
-
-    // get user data from firestore
     const userData = await getData(userId);
+    if (!userData) {
+        return h.response({
+            status: 'fail',
+            message: 'User not found'
+        }).code(404);
+    }
 
-    // replace user data with new data from request payload
     userData.waterValue = request.payload.waterValue;
 
-    // store data into firestore
     await storeData(userId, userData);
 
     const response = h.response({
@@ -117,9 +112,13 @@ async function editWaterValueHandler(request, h) {
 
 async function getWaterValueHandler(request, h) {
     const { userId } = request.params;
-
-    // get user data from firestore
     const userData = await getData(userId);
+    if (!userData) {
+        return h.response({
+            status: 'fail',
+            message: 'User not found'
+        }).code(404);
+    }
 
     const response = h.response({
         status: 'success',

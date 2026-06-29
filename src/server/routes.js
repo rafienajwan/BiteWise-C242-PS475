@@ -2,10 +2,8 @@ const { getAllFoodDataHandler, searchMealHandler, getMealDetailsHandler, addMeal
 const { addUserHandler, getUserHandler, editUserHandler, editWaterValueHandler, getWaterValueHandler, getAllUsersHandler } = require('./handler/userHandler');
 const { predictPFCHandler, getPFCHandler } = require('./handler/pfcHandler');
 const { predictGoalsHandler, getGoalsHandler } = require('./handler/goalsHandler');
-// const { predictRecommendationHandler } = require('./handler/recommendationHandler');
 const { getNutrientTrackerHandler } = require('./handler/trackerHandler');
 const { pushFoodData } = require('./postSearchQueue');
-const { pushTrackerMemory } = require('./postTrackerMemory');
 
 const routes = [
     {
@@ -59,24 +57,10 @@ const routes = [
                 parse: true,
                 allow: 'multipart/form-data',
                 multipart: true,
-                maxBytes: 10485760, // 10 MB limit
+                maxBytes: 10485760,
             }
         },
         handler: pushFoodData
-    },
-    {
-        method: 'POST',
-        path: '/posttrackermemory',
-        options: {
-            payload: {
-                output: 'stream',
-                parse: true,
-                allow: 'multipart/form-data',
-                multipart: true,
-                maxBytes: 10485760, // 10 MB limit
-            }
-        },
-        handler: pushTrackerMemory
     },
     {
         method: 'GET',
@@ -98,7 +82,7 @@ const routes = [
         path: '/user/{userId}/meal/{mealId}/add',
         options: {
             payload: {
-                maxBytes: 10485760, // 10 MB limit
+                maxBytes: 10485760,
             }
         },
         handler: addMealComponentHandler
@@ -108,7 +92,7 @@ const routes = [
         path: '/user/{userId}/meal/add',
         options: {
             payload: {
-                maxBytes: 10485760, // 10 MB limit
+                maxBytes: 10485760,
             }
         },
         handler: addManualMealComponentHandler
@@ -153,16 +137,6 @@ const routes = [
         path: '/user/{userId}/goals',
         handler: getGoalsHandler
     },
-    // {
-    //     method: 'POST',
-    //     path: '/user/{userId}/recommendation',
-    //     handler: predictRecommendationHandler
-    // },
-    // {
-    //     method: 'GET',
-    //     path: '/user/{userId}/recommendation',
-    //     handler: getRecommendationHandler
-    // },
     {
         method: '*',
         path: '/{any*}',

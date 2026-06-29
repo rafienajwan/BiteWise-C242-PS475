@@ -1,13 +1,10 @@
-const tf = require('@tensorflow/tfjs-node');
+const tf = require('../tensorflow');
 const inputError = require('../../exceptions/InputError');
 
 async function predictGoals(model, data) {
     try {
-        // Convert data to a 2D tensor
         const inputTensor = data.reshape([-1, 4]);
-        // Perform prediction
         const prediction = model.predict(inputTensor);
-        // Convert prediction to array
         const goalsArray = prediction.dataSync();
         return Array.from(goalsArray);
     } catch (error) {

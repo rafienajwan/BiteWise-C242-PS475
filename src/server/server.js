@@ -3,40 +3,35 @@ const Hapi = require('@hapi/hapi');
 const routes = require('./routes');
 const InputError = require('../exceptions/InputError');
 const loadPFCModel = require('../services/pfcModel/loadPFCModel');
-const loadRecommendationModel = require('../services/recommendationModel/loadRecommendationModel');
 const loadGoalsModel = require('../services/goalsModel/loadGoalsModel');
 
 (async () => {
     const server = Hapi.server({
-        port: process.env.PORT || 3000, // Use PORT environment variable or default to 3000
+        port: process.env.PORT || 3000,
         host: '0.0.0.0',
         routes: {
             cors: {
               origin: ['*'],
             },
             payload: {
-                maxBytes: 10485760, // 10 MB limit
+                maxBytes: 10485760,
             }
         },
     });
 
     try {
-        // Load the PFC model and Recommendation model concurrently
-        const [pfcModel, recommendationModel, goalsModel] = await Promise.all([
+        const [pfcModel, goalsModel] = await Promise.all([
             loadPFCModel(),
-            loadRecommendationModel(),
             loadGoalsModel()
         ]);
 
-        // Attach the models to server.app
         server.app.pfcModel = pfcModel;
-        server.app.recommendationModel = recommendationModel;
         server.app.goalsModel = goalsModel;
 
-        console.log('PFC, Recommendation, and Goals Model loaded and attached to server');
+        console.log('PFC and Goals models loaded and attached to server');
     } catch (error) {
-        console.error('Failed to load models:', error);
-        process.exit(1); // Exit if the models can't be loaded
+        console.error('Failed to load required models:', error);
+        process.exit(1);
     }
 
     server.route(routes);

@@ -1,14 +1,14 @@
 # BiteWise
 
-BiteWise is a cloud-based application designed to help users manage their daily food intake and nutrition with features such as food search, nutrition recommendations, calorie tracking, and personalized goal setting.
+BiteWise is a cloud-based backend API designed to help users manage daily food intake and nutrition with features such as food search, meal logging, water tracking, calorie tracking, PFC target prediction, and weight-goal estimation.
 
 ## Key Features
 
 1. **Food Search**  
    - Search for meals by name and retrieve relevant nutritional information stored in Firestore.
 
-2. **Nutrition Management**  
-   - Manage meal nutrition data and use it for further analysis or reporting.
+2. **Meal and Nutrition Management**  
+   - Manage meal nutrition data, manual meal components, and daily nutrient summaries.
 
 3. **Goal and Target Tracking**  
    - Set and monitor daily calorie and nutrition goals with estimated timeframes to reach target weight using `/user/{userId}/goals`.
@@ -50,7 +50,20 @@ BiteWise provides various API endpoints that enable integration of features such
 
 7. **Integration with Firestore and ML Models**  
    - Leverage Firestore for data storage and retrieval.  
-   - Use machine learning models to personalize recommendations and predictions for users.
+   - Use TensorFlow.js models for PFC and goal predictions.
+
+## Machine Learning Model Status
+
+This repository only contains the backend integration code for the machine learning models. The model files are loaded from URLs configured in environment variables:
+
+- `PFC_MODEL_URL`: required. Used by `POST /user/{userId}/pfc`.
+- `GOALS_MODEL_URL`: required. Used by `POST /user/{userId}/goals`.
+
+Important limitations:
+
+- The training datasets, training notebooks/scripts, preprocessing/scaling details, model evaluation metrics, and model version history are not included in this repository.
+- Because of that, this README cannot honestly claim model accuracy or explain the full training methodology.
+- The backend can only describe the runtime inputs and outputs currently used by the API.
 
 
 ### Endpoints:
@@ -83,12 +96,57 @@ BiteWise provides various API endpoints that enable integration of features such
      - **Method**: `PUT`  
        **Description**: Mengedit data pengguna tertentu. Input sama seperti pada metode `POST`.  
 
-3. **Nutrient Tracker**  
+   - **Endpoint**: `/user/{userId}/waterValue`  
+     - **Method**: `GET`  
+       **Description**: Mengambil nilai konsumsi air pengguna.  
+     - **Method**: `PUT`  
+       **Description**: Mengubah nilai konsumsi air pengguna. Contoh input:  
+       ```json
+       {
+           "waterValue": 3
+       }
+       ```
+
+3. **Food Search and Meal Data**  
+   - **Endpoint**: `/search`  
+     - **Method**: `GET`  
+       **Description**: Mengambil semua data makanan dari koleksi `foodMenu`.  
+
+   - **Endpoint**: `/search/{mealName}`  
+     - **Method**: `GET`  
+       **Description**: Mencari data makanan berdasarkan nama dokumen makanan. Spasi akan diperlakukan sebagai underscore.  
+
+   - **Endpoint**: `/meal/{mealId}`  
+     - **Method**: `GET`  
+       **Description**: Mengambil detail makanan berdasarkan ID dokumen di `foodMenu`.  
+
+4. **Meal Logging**  
+   - **Endpoint**: `/user/{userId}/meal/{mealId}/add`  
+     - **Method**: `POST`  
+       **Description**: Menambahkan komponen makanan dari data `foodMenu` ke profil pengguna jika `postToProfile` bernilai `true`.  
+
+   - **Endpoint**: `/user/{userId}/meal/add`  
+     - **Method**: `POST`  
+       **Description**: Menambahkan komponen makanan manual ke profil pengguna dan menyimpan data nutrisinya ke `foodMenu`.  
+
+   - **Endpoint**: `/user/{userId}/meal`  
+     - **Method**: `GET`  
+       **Description**: Mengambil daftar meal yang tersimpan pada pengguna.  
+
+   - **Endpoint**: `/user/{userId}/meal/{mealName}/{componentName}`  
+     - **Method**: `DELETE`  
+       **Description**: Menghapus satu komponen dari meal pengguna.  
+
+   - **Endpoint**: `/user/{userId}/meal/{mealName}`  
+     - **Method**: `DELETE`  
+       **Description**: Menghapus satu meal beserta komponennya.  
+
+5. **Nutrient Tracker**  
    - **Endpoint**: `/user/{userId}/nutrientTracker`  
      - **Method**: `GET`  
        **Description**: Mengambil semua data yang dibutuhkan untuk melacak nutrisi, termasuk total nutrisi yang dikonsumsi dan target PFC.  
 
-4. **PFC Model (Protein, Fat, Carbohydrate)**  
+6. **PFC Model (Protein, Fat, Carbohydrate)**  
    - **Endpoint**: `/user/{userId}/pfc`  
      - **Method**: `POST`  
        **Description**: Memprediksi target PFC berdasarkan input target kalori. Contoh input:  
@@ -108,7 +166,7 @@ BiteWise provides various API endpoints that enable integration of features such
        }
        ```  
 
-5. **Goal Tracking**  
+7. **Goal Tracking**  
    - **Endpoint**: `/user/{userId}/goals`  
      - **Method**: `POST`  
        **Description**: Menghitung estimasi hari yang dibutuhkan untuk mencapai target berat badan.  
@@ -133,45 +191,61 @@ BiteWise provides various API endpoints that enable integration of features such
 
 ## Installation
 
+This project is configured for Node.js 18, matching the `nodejs18` runtime in `app.yaml`. The backend tries to use native `@tensorflow/tfjs-node` first, then falls back to `@tensorflow/tfjs` when the native binding is unavailable on the local machine.
+
 1. Clone the repository:
    ```bash
    git clone https://github.com/username/BiteWise.git
+   ```
 
 2. Navigate to the project directory
    ```bash
    cd BiteWise
+   ```
 
 3. Install dependencies:
    ```bash
    npm install
+   ```
 
 4. Run the application:
    ```bash
    npm start
+   ```
 
-## Using the Calorie Calculation Feature
-This feature calculates daily calorie intake based on meals logged by users, using Firestore as the database and Google App Engine F2 for backend processing.
+5. Configure environment variables:
+   ```bash
+   PORT=3000
+   PFC_MODEL_URL=https://example.com/pfc/model.json
+   GOALS_MODEL_URL=https://example.com/goals/model.json
+   ```
+
+## Using the Calorie and Nutrient Tracker
+
+The calorie and nutrient tracker is implemented through the API, not through a standalone `calculateCalories` script. The backend reads meal components from the user's `wantedMenu` data in Firestore, sums calories, carbs, fats, and proteins for today's logged meals, then returns the summary together with the user's PFC target.
+
+Example request:
+
 ```bash
-npm install @google-cloud/firestore
+GET /user/{userId}/nutrientTracker
 ```
 
-### Steps to Run the Function
-1. **Import the Function:**
-   Make sure the function `calculateCalories` is imported from the appropriate file.
-   ```javascript
-   const calculateCalories = require('./calculateCalories');
+Example response:
 
-2. **Execute the Function: Replace exampleUserId with the actual user ID from your Firestore database.**
-This feature calculates daily calorie intake based on meals logged by users, using Firestore as the database and Google App Engine F2 for backend processing. 
-```javascript
-(async () => {
-    const userId = 'exampleUserId'; // Replace with a valid user ID
-    const result = await calculateCalories(userId);
-    console.log('Total Calories:', result.totalCalories);
-})();
-```
-
-3. **Run the Script: Save the script in a file, e.g., app.js, and execute it using Node.js:**
-```bash
-node app.js
+```json
+{
+    "nutrientSummary": {
+        "totalCalories": 520,
+        "totalCarbs": 61,
+        "totalFats": 18,
+        "totalProteins": 32
+    },
+    "targetPFC": {
+        "calories": 916,
+        "carbs": 110,
+        "fats": 28,
+        "proteins": 77,
+        "targetGoal": 69
+    }
+}
 ```

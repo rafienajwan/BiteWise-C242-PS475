@@ -1,4 +1,3 @@
-// Helper function to extract numeric values from a formatted string
 function extractNutrientValues(description) {
     const nutrients = {
         calories: 0,

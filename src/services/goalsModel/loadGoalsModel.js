@@ -1,8 +1,13 @@
-const tf = require('@tensorflow/tfjs-node');
+const tf = require('../tensorflow');
 
 async function loadGoalsModel() {
     try {
-        const model = await tf.loadLayersModel(process.env.GOALS_MODEL_URL);
+        const modelUrl = process.env.GOALS_MODEL_URL;
+        if (!modelUrl) {
+            throw new Error('GOALS_MODEL_URL environment variable is required');
+        }
+
+        const model = await tf.loadLayersModel(modelUrl);
         return model;
     } catch (error) {
         console.error('Error loading goals model:', error);

@@ -6,28 +6,24 @@ const db = new Firestore();
 const collection = db.collection('foodMenu');
 
 async function pushFoodData(request, h) {
-    const file = request.payload.file; // Assuming the file is sent with the key 'file'
+    const file = request.payload.file;
     const filePath = path.join(__dirname, file.hapi.filename);
 
     try {
-        // Save the file to the server
         console.log('Saving the file to the server...');
         await fs.writeFile(filePath, file._data);
         console.log(`File saved successfully at ${filePath}`);
 
-        // Read and parse the JSON file
         console.log('Reading and parsing the JSON file...');
         const fileContent = await fs.readFile(filePath, 'utf8');
         const foodData = JSON.parse(fileContent);
         console.log('JSON file parsed successfully.');
 
-        // Use Firestore batch to handle multiple writes
         const batch = db.batch();
         let documentCount = 0;
 
         console.log('Starting to process food data...');
         for (const [foodName, foodDetailsArray] of Object.entries(foodData)) {
-            // Sanitize the foodName to be a valid Firestore document ID
             const sanitizedFoodName = foodName.replace(/[\/\s]/g, '_');
             if (Array.isArray(foodDetailsArray)) {
                 foodDetailsArray.forEach(foodDetails => {
@@ -44,12 +40,10 @@ async function pushFoodData(request, h) {
             }
         }
 
-        // Commit the batch
         console.log('Committing the batch...');
         await batch.commit();
         console.log(`All documents added to Firestore. Total documents uploaded: ${documentCount}`);
 
-        // Clean up the file after processing
         console.log('Cleaning up the file...');
         await fs.unlink(filePath);
         console.log(`File cleaned up successfully at ${filePath}`);

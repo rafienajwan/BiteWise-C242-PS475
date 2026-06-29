@@ -1,6 +1,23 @@
 const { Firestore } = require('@google-cloud/firestore');
 const firestore = new Firestore();
 
+function toDate(value) {
+    if (!value) {
+        return null;
+    }
+
+    if (typeof value.toDate === 'function') {
+        return value.toDate();
+    }
+
+    if (value instanceof Date) {
+        return value;
+    }
+
+    const date = new Date(value);
+    return Number.isNaN(date.getTime()) ? null : date;
+}
+
 async function getDailyNutrientSummary(userId) {
     const userProfileRef = firestore.collection('users').doc(userId);
     const userDoc = await userProfileRef.get();
@@ -11,7 +28,7 @@ async function getDailyNutrientSummary(userId) {
 
     const userData = userDoc.data();
     const wantedMenu = userData.wantedMenu || {};
-    const today = new Date().toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
+    const today = new Date().toISOString().split('T')[0];
 
     let totalCalories = 0;
     let totalCarbs = 0;
@@ -22,7 +39,13 @@ async function getDailyNutrientSummary(userId) {
         const mealComponents = wantedMenu[mealName];
         for (const componentName in mealComponents) {
             const component = mealComponents[componentName];
-            const componentDate = component.timestamp.toDate().toISOString().split('T')[0];
+            const timestamp = toDate(component.timestamp);
+            if (!timestamp) {
+                console.error(`Invalid timestamp for component: ${componentName} in meal: ${mealName}`);
+                continue;
+            }
+
+            const componentDate = timestamp.toISOString().split('T')[0];
             if (componentDate === today) {
                 if (component.calories == null || component.carbs == null || component.fat == null || component.protein == null) {
                     console.error(`Missing nutrient data for component: ${componentName} in meal: ${mealName}`);

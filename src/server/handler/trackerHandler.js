@@ -18,7 +18,6 @@ async function getNutrientTrackerHandler(request, h) {
         const userData = userDoc.data();
         const targetPFC = userData.wantedPFC || {};
 
-        // Round the nutrient summary values to the nearest integer
         const roundedNutrientSummary = {
             totalCalories: Math.round(nutrientSummary.totalCalories),
             totalCarbs: Math.round(nutrientSummary.totalCarbs),
@@ -26,7 +25,6 @@ async function getNutrientTrackerHandler(request, h) {
             totalProteins: Math.round(nutrientSummary.totalProteins)
         };
 
-        // Round the target PFC values to the nearest integer
         const roundedTargetPFC = {
             calories: Math.round(targetPFC.calories || 0),
             carbs: Math.round(targetPFC.carbs || 0),
